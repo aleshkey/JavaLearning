@@ -6,17 +6,12 @@
 
     <servlet>
         <servlet-name>MenuServlet</servlet-name>
-        <servlet-class>com.shop.carshop.servlet.CarServlet</servlet-class>
+        <servlet-class>com.shop.carshop.servlets.CarServlet</servlet-class>
     </servlet>
     
     <servlet-mapping>
         <servlet-name>MenuServlet</servlet-name>
         <url-pattern>/car-shop</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>MenuServlet</servlet-name>
-        <url-pattern>/car-shop/id/{number}</url-pattern>
     </servlet-mapping>
     
 </web-app>

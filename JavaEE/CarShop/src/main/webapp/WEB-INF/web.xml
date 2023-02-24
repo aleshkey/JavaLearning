@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>MenuServlet</servlet-name>
-        <servlet-class>com.shop.carshop.servlet.CarServlet</servlet-class>
+        <servlet-class>com.shop.carshop.servlets.MenuServlet</servlet-class>
     </servlet>
     
     <servlet-mapping>

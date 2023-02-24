@@ -42,10 +42,9 @@ public class CarDAO {
             car.setID(rs.getInt("id"));
             car.setCondition(Condition.valueOf(rs.getString("condition")));
             car.setMark(rs.getString("mark"));
-            car.setEngineCapacity(rs.getInt("engine_capacity"));
+            car.setModel(rs.getString("model"));
+            car.setOwnerID(rs.getInt("owner_id"));
             car.setYearOfRelease(rs.getInt("year_of_release"));
-            car.setImage(rs.getString("image"));
-            car.setOwnerName(rs.getString("owner_name"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -93,16 +92,14 @@ public class CarDAO {
 
     public void addCar(Car car){
         try {
-            var ps = connection.prepareStatement("insert into car_db (mark, model, year_of_release, engine_capacity, condition, owner_name, ad_creation_date, ad_cange_date) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            var ps = connection.prepareStatement("insert into car_db (mark, model, year_of_release, condition, owner_id, ad_creation_date, ad_change_date) values (?, ?, ?, ?, ?, ?, ?)");
             ps.setString(1, car.getMark());
             ps.setString(2, car.getModel());
             ps.setInt(3, car.getYearOfRelease());
-            ps.setInt(4, car.getEngineCapacity());
-            ps.setString(5, String.valueOf(car.getCondition()));
-            ps.setString(6, car.getOwnerName());
-            ps.setString(7, car.getImage());
-            ps.setString(8, getCurrentDate());
-            ps.setString(9, getCurrentDate());
+            ps.setString(4, String.valueOf(car.getCondition()));
+            ps.setInt(5, car.getOwnerID());
+            ps.setString(6, getCurrentDate());
+            ps.setString(7, getCurrentDate());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

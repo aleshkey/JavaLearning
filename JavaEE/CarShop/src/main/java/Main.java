@@ -6,6 +6,12 @@ import java.time.ZonedDateTime;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println( String.valueOf(ZonedDateTime.now()).split("T")[0] );
+        Car car = new Car();
+        car.setYearOfRelease(2019);
+        car.setCondition(Condition.newCondition);
+        car.setMark("Mercedes");
+        car.setModel("AMG");
+        car.setOwnerID(1);
+        new CarDAO().addCar(car);
     }
 }
