@@ -2,6 +2,7 @@ package com.shop.carshop.DAO;
 
 import com.shop.carshop.models.Car;
 import com.shop.carshop.models.Condition;
+import com.shop.carshop.utils.Util;
 
 import javax.swing.*;
 import java.io.FileInputStream;
@@ -21,19 +22,7 @@ public class CarDAO {
     }
 
     public CarDAO() {
-        Properties properties = new Properties();
-
-        try {
-            properties.load(new FileInputStream("D:\\java\\JavaEE\\CarShop\\src\\main\\resources\\application.properties"));
-            Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection(properties.getProperty("URL"), properties.getProperty("USER"), properties.getProperty("PASSWORD"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        connection = Util.createConnection();
     }
 
     private Car setInfoFromResultSet(ResultSet rs){
@@ -80,7 +69,9 @@ public class CarDAO {
 
     public Car findCarByID(int id){
         try {
-            ResultSet rs  = connection.prepareStatement("select from car_db where id = ?", id).executeQuery();
+            var ps = connection.prepareStatement("select * from car_db where id = ?");
+            ps.setInt(1, id);
+            var rs = ps.executeQuery();
             if (rs.next()){
                 return setInfoFromResultSet(rs);
             }
