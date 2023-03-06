@@ -98,7 +98,7 @@ public class CarDAO {
     }
 
 
-    public void removeCar(int id){
+    public void deleteCar(int id){
 
         try {
             var ps = connection.prepareStatement("delete from car_db where id = ?");
@@ -110,48 +110,29 @@ public class CarDAO {
 
     }
 
-    public void removeImage(int id){
+    public void updateCar(Car car){
         try {
-            int carId = connection.prepareStatement("select from image_db where id = "+id).executeQuery().getInt("car_id");
-            var updatePS = connection.prepareStatement("update car_db ad_change_date = ? where car_id = ?");
-            updatePS.setString(1, getCurrentDate());
-            updatePS.setInt(2, carId);
-            updatePS.executeUpdate();
-
-            var ps = connection.prepareStatement("delete from image_db where id = ?");
-            ps.setInt(1, id);
+            var ps = connection.prepareStatement("update car_db set mark = ?, model = ?, year_of_release=?, ad_change_date=? where id = ?");
+            ps.setString(1, car.getMark());
+            ps.setString(2, car.getModel());
+            ps.setInt (3, car.getYearOfRelease());
+            ps.setString(4, getCurrentDate());
+            ps.setInt(5, car.getID());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void updateImage(int id, String URL){
+    public void updateDate(int carId){
         try {
-            var updatePS = connection.prepareStatement("update image_db image_url = ? where id = ?");
-            updatePS.setString(1, URL);
-            updatePS.setInt(2, id);
-            updatePS.executeUpdate();
-
-            int carId = connection.prepareStatement("select from image_db where id = "+id).executeQuery().getInt("car_id");
-            var updateDatePS = connection.prepareStatement("update car_db ad_change_date = ? where car_id = ?");
-            updateDatePS.setString(1, getCurrentDate());
-            updateDatePS.setInt(2, carId);
-            updateDatePS.executeUpdate();
-            } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void addImage(String url, int car_id){
-        try {
-            var ps = connection.prepareStatement("insert into image_db (image_url, car_id) values (?, ?)");
-            ps.setString(1, url);
-            ps.setInt(2, car_id);
+            var ps = connection.prepareStatement("update car_db set ad_change_date=? where id = ?");
+            ps.setString(1, getCurrentDate());
+            ps.setInt(2, carId);
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
+
 }

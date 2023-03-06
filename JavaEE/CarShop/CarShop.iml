@@ -35,13 +35,6 @@
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.9" level="project" />
     <orderEntry type="library" name="Maven: top.jfunc.json:json-gson:1.8.3" level="project" />
     <orderEntry type="library" name="Maven: top.jfunc.json:json-common:1.8.2" level="project" />
-    <orderEntry type="library" name="Maven: com.xnx3.json:json:1.0" level="project" />
-    <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.7.0" level="project" />
-    <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.0.3" level="project" />
-    <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.1" level="project" />
-    <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.5" level="project" />
-    <orderEntry type="library" name="Maven: net.sf.ezmorph:ezmorph:1.0.3" level="project" />
-    <orderEntry type="library" name="Maven: net.sf.json-lib:json-lib:jdk15:2.4" level="project" />
     <orderEntry type="library" name="Maven: com.googlecode.json-simple:json-simple:1.1" level="project" />
   </component>
 </module>

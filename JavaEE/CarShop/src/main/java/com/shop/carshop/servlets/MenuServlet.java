@@ -3,6 +3,8 @@ package com.shop.carshop.servlets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.shop.carshop.DAO.CarDAO;
+import com.shop.carshop.utils.Util;
+import org.json.simple.JSONObject;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -31,6 +33,9 @@ public class MenuServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
+        JSONObject object = Util.readJSON(req);
+        if (object.containsKey("car_id")){
+            resp.sendRedirect("/car-shop/car/"+object.get("car_id"));
+        }
     }
 }

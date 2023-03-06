@@ -12,23 +12,16 @@
         <servlet-name>SingleCarServlet</servlet-name>
         <servlet-class>com.shop.carshop.servlets.SingleCarServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>DeleteServlet</servlet-name>
-        <servlet-class>com.shop.carshop.servlets.DeleteServlet</servlet-class>
-    </servlet>
+
 
     
     <servlet-mapping>
         <servlet-name>MenuServlet</servlet-name>
-        <url-pattern>/car-shop</url-pattern>
+        <url-pattern>/car-shop/cars</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SingleCarServlet</servlet-name>
-        <url-pattern>/car-shop/car/*</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteServlet</servlet-name>
-        <url-pattern>/car-shop/delete/car/*</url-pattern>
+        <url-pattern>/car-shop/cars/*</url-pattern>
     </servlet-mapping>
     
 </web-app>
