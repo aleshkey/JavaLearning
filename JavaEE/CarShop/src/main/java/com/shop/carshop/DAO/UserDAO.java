@@ -1,11 +1,10 @@
 package com.shop.carshop.DAO;
 
-import com.shop.carshop.models.Car;
-import com.shop.carshop.models.Condition;
 import com.shop.carshop.models.User;
 import com.shop.carshop.utils.Util;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -46,10 +45,41 @@ public class UserDAO {
 
     public void createUser(User user){
         try {
-            var ps = connection.prepareStatement("insert into user_db (name, email) values (?, ?)");
-            ps.setString(1, user.getName());
-            ps.setString(2, user.getEmail());
-            ps.executeUpdate();
+            if (!exist(user)) {
+                var ps = connection.prepareStatement("insert into user_db (name, email) values (?, ?)");
+                ps.setString(1, user.getName());
+                ps.setString(2, user.getEmail());
+                ps.executeUpdate();
+            }
+        }catch(SQLException e){
+                throw new RuntimeException(e);
+        }
+    }
+
+    public boolean exist(User user) {
+        PreparedStatement ps = null;
+        try {
+            ps = connection.prepareStatement("select email from user_db where email = ?");
+            ps.setString(1, user.getEmail());
+            var rs = ps.executeQuery();
+            if (rs.next())
+                return true;
+            return false;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public User findUserByEmail(String email){
+        PreparedStatement ps = null;
+        try {
+            ps = connection.prepareStatement("select * from user_db where email = ?");
+            ps.setString(1, email);
+            var rs = ps.executeQuery();
+            if (rs.next())
+                return setInfoFromResultSet(rs);
+            return null;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

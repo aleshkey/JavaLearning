@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.regex.*;
 
@@ -36,12 +38,15 @@ public class Util {
     }
 
     public static int getIDFromURL(String URL){
-        Pattern pat=Pattern.compile("[-]?[0-9]+(.[0-9]+)?");
-        Matcher matcher=pat.matcher(URL);
-        if (matcher.find()){
-            return Integer.parseInt(matcher.group());
+        Pattern integerPattern = Pattern.compile("-?\\d+");
+        Matcher matcher = integerPattern.matcher(URL);
+
+        List<Integer> integerList = new ArrayList<>();
+        while (matcher.find()) {
+            integerList.add(Integer.parseInt(matcher.group()));
         }
-        return -1;
+
+        return integerList.get(0);
     }
 
     public static JSONObject readJSON(HttpServletRequest request){
@@ -63,4 +68,20 @@ public class Util {
         }
         return object;
     }
+
+    public static int getMaxId(String dataBaseName){
+        Connection connection = createConnection();
+        int res= -1;
+        try {
+            var ps = connection.prepareStatement("SELECT MAX(id) FROM "+dataBaseName);
+            var rs = ps.executeQuery();
+            if (rs.next()){
+                res = rs.getInt(1);
+            }
+            return res;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

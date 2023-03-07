@@ -1,7 +1,5 @@
 package com.shop.carshop.servlets;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.shop.carshop.DAO.CarDAO;
 import com.shop.carshop.DAO.ImageDAO;
 import com.shop.carshop.DAO.PhoneDAO;
@@ -16,21 +14,30 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "SingleCarServlet", value = "/SingleCarServlet")
+@WebServlet("/car-shop/cars/{id}")
 public class SingleCarServlet extends HttpServlet {
+
     CarDAO carDAO = new CarDAO();
     ImageDAO imageDAO = new ImageDAO();
     UserDAO userDAO = new UserDAO();
     PhoneDAO phoneDAO = new PhoneDAO();
 
-    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
         PrintWriter pw = response.getWriter();
-        pw.write(gson.toJson(carDAO.findCarByID(Util.getIDFromURL(request.getRequestURI()))));
-
+        Car car = carDAO.findCarByID(Util.getIDFromURL(request.getRequestURI()));
+        JSONObject object = new JSONObject();
+        object.put("mark", car.getMark());
+        object.put("model", car.getModel());
+        object.put("yearOfRelease", car.getYearOfRelease());
+        object.put("condition", car.getCondition());
+        object.put("ownerName", userDAO.findUserById(car.getOwnerID()).getName());
+        object.put("ownerPhones", phoneDAO.getPhonesByOwnerId(car.getOwnerID()));
+        object.put("photosURL", imageDAO.getImageByCarId(car.getID()));
+        object.put("creationDate", carDAO.getDateOfCreation(car.getID()));
+        pw.write(String.valueOf(object));
     }
 
     @Override
@@ -53,6 +60,6 @@ public class SingleCarServlet extends HttpServlet {
         int carId = Util.getIDFromURL(req.getRequestURI());
         carDAO.deleteCar(carId);
         imageDAO.deleteByOwnerID(carId);
-        resp.sendRedirect("/car-shop/cars");
+        resp.sendRedirect("/car-shop/cars/pages/1");
     }
 }
