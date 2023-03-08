@@ -41,7 +41,17 @@ public class MenuServlet extends HttpServlet {
         response.setContentType("application/json");
         int page = Util.getIDFromURL(request.getRequestURI());
         PrintWriter pw = response.getWriter();
-        pw.write(gson.toJson(carDAO.getPageOfCars(page)));
+        for (var car : carDAO.getPageOfCars(page)){
+            JSONObject object = new JSONObject();
+            object.put("ID", car.getID());
+            object.put("year_of_release", car.getYearOfRelease());
+            object.put("mark", car.getMark());
+            object.put("model", car.getModel());
+            object.put("condition", String.valueOf(car.getCondition()));
+            object.put("ad_creation_date", carDAO.getDateOfCreation(car.getID()));
+            object.put("number_of_images", imageDAO.getNumberOfImagesOfTheCar(car.getID()));
+            pw.write(String.valueOf(object));
+        }
     }
 
     @Override
