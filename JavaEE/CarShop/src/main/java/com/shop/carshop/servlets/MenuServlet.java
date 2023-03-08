@@ -8,6 +8,7 @@ import com.shop.carshop.DAO.PhoneDAO;
 import com.shop.carshop.DAO.UserDAO;
 import com.shop.carshop.models.*;
 import com.shop.carshop.utils.Util;
+import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -20,10 +21,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 
 @WebServlet(name = "MenuServlet", value = "/MenuServlet")
 public class MenuServlet extends HttpServlet {
+
 
     private CarDAO carDAO = new CarDAO();
     private UserDAO userDAO = new UserDAO();
@@ -78,7 +82,6 @@ public class MenuServlet extends HttpServlet {
         array =(JSONArray) object.get("images");
         iterator = array.iterator();
         while (iterator.hasNext()) {
-            System.out.println(2);
             JSONObject jsonObject = iterator.next();
             Image image = new Image();
             image.setCarId(carID);

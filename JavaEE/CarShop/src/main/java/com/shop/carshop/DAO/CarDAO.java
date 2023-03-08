@@ -64,7 +64,6 @@ public class CarDAO {
 
             var ps = connection.prepareStatement("select * from car_db ORDER by ad_creation_date LIMIT ? offset ? ");
             ps.setInt(2, 20 * numberOfPage);
-            System.out.println(page);
             ps.setInt(1, page);
             var rs = ps.executeQuery();
             while (rs.next()) {
@@ -152,6 +151,20 @@ public class CarDAO {
             var rs = ps.executeQuery();
             if (rs.next()) {
                 return rs.getString("ad_creation_date");
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String getChangeDate(int carId) {
+        try {
+            var ps = connection.prepareStatement("select * from car_db where id = ?");
+            ps.setInt(1, carId);
+            var rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("ad_change_date");
             }
             return null;
         } catch (SQLException e) {
