@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 ;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -15,6 +16,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static javax.servlet.RequestDispatcher.ERROR_EXCEPTION;
 import static org.slf4j.LoggerFactory.getLogger;
 
 
@@ -37,10 +39,15 @@ public class LogInFilter implements Filter,
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        chain.doFilter(request, response);
-        logger.info(
-                "\t{}\t\t{}\t\t{}\t", ((HttpServletRequest) request).getMethod(),
-                ((HttpServletRequest) request).getRequestURI(), ((HttpServletResponse) response).getStatus());
+        try {
+            chain.doFilter(request, response);
+            logger.info(
+                    "\t{}\t\t{}\t\t{}\t", ((HttpServletRequest) request).getMethod(),
+                    ((HttpServletRequest) request).getRequestURI(), ((HttpServletResponse) response).getStatus());
+        }
+        catch (Exception e){
+            logger.error(e.getMessage());
+        }
     }
 
 
