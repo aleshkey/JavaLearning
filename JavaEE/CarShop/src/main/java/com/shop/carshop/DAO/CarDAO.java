@@ -110,6 +110,9 @@ public class CarDAO {
     public void deleteCar(int id) {
 
         try {
+
+            ImageDAO imageDAO = new ImageDAO();
+             imageDAO.deleteByOwnerID(id);
             var ps = connection.prepareStatement("delete from car_db where id = ?");
             ps.setInt(1, id);
             ps.executeUpdate();

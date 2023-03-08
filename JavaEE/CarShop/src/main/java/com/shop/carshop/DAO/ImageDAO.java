@@ -80,7 +80,7 @@ public class ImageDAO {
 
     public void deleteByOwnerID(int carId){
         try {
-            var ps = connection.prepareStatement("delete * from image_db where car_id = ?");
+            var ps = connection.prepareStatement("delete from image_db where car_id = ?");
             ps.setInt(1, carId);
             ps.executeUpdate();
         } catch (SQLException e) {

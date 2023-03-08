@@ -59,7 +59,6 @@ public class SingleCarServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int carId = Util.getIDFromURL(req.getRequestURI());
         carDAO.deleteCar(carId);
-        imageDAO.deleteByOwnerID(carId);
         resp.sendRedirect("/car-shop/cars/pages/1");
     }
 }
