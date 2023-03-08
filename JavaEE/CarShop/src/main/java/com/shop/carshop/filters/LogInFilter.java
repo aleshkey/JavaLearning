@@ -11,10 +11,12 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.SingleThreadModel;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static org.slf4j.LoggerFactory.getLogger;
+
 
 public class LogInFilter implements Filter,
         SingleThreadModel {
@@ -35,14 +37,10 @@ public class LogInFilter implements Filter,
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        if (request instanceof HttpServletRequest) {
-            logger.info("request: server: {}, port: {}, URI: {}", request.getServerName(), request.getServerPort(), ((HttpServletRequest) request).getRequestURI());
-        }
-
-        if (response instanceof HttpServletResponse){
-            logger.info("response: status: {}, encoding: {}", ((HttpServletResponse) response).getStatus(), response.getCharacterEncoding());
-        }
         chain.doFilter(request, response);
+        logger.info(
+                "\t{}\t\t{}\t\t{}\t", ((HttpServletRequest) request).getMethod(),
+                ((HttpServletRequest) request).getRequestURI(), ((HttpServletResponse) response).getStatus());
     }
 
 

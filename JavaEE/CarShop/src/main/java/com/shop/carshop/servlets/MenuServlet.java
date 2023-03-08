@@ -95,7 +95,7 @@ public class MenuServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         JSONObject object = Util.readJSON(req);
         if (object.containsKey("car_id")){
-            resp.sendRedirect("/car-shop/car/"+object.get("car_id").toString());
+            resp.sendRedirect("/car-shop/cars/"+object.get("car_id").toString());
         }
     }
 }
