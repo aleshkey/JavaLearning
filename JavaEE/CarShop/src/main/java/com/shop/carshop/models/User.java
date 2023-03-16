@@ -1,24 +1,17 @@
 package com.shop.carshop.models;
 
 
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
-@Getter
+@Data
+@NoArgsConstructor
 public class User {
     private int ID;
 
     private String name;
 
     private String email;
-
-    public User(int id, String name, String email) {
-        this.ID = id;
-        this.name = name;
-        this.email = email;
-    }
-
-    public User() {
-    }
 }

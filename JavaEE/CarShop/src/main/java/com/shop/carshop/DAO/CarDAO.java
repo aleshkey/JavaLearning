@@ -63,8 +63,8 @@ public class CarDAO {
             }
 
             var ps = connection.prepareStatement("select * from car_db ORDER by ad_creation_date LIMIT ? offset ? ");
-            ps.setInt(2, 20 * numberOfPage);
             ps.setInt(1, page);
+            ps.setInt(2, 20 * numberOfPage);
             var rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(setInfoFromResultSet(rs));
@@ -105,7 +105,6 @@ public class CarDAO {
             throw new RuntimeException(e);
         }
     }
-
 
     public void deleteCar(int id) {
 

@@ -2,12 +2,14 @@ package com.shop.carshop.models;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.json.simple.JSONObject;
 
-@Setter
-@Getter
+@Data
+@NoArgsConstructor
 public class Phone {
 
     private String number;
@@ -15,15 +17,6 @@ public class Phone {
     private int ownerID;
 
     private int id;
-
-    public Phone(String number, int ownerID, int id) {
-        this.number = number;
-        this.ownerID = ownerID;
-        this.id = id;
-    }
-
-    public Phone() {
-    }
 
     @Override
     public String toString() {

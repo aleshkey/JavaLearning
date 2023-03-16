@@ -1,12 +1,14 @@
 package com.shop.carshop.models;
 
 
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.json.simple.JSONObject;
 
-@Setter
-@Getter
+@Data
+@NoArgsConstructor
 public class Image {
 
     private int id;
@@ -14,16 +16,6 @@ public class Image {
     private String url;
 
     private int carId;
-
-    public Image(int id, String url, int car_id) {
-        this.id = id;
-        this.url = url;
-        this.carId = car_id;
-    }
-
-    public Image() {
-
-    }
 
     @Override
     public String toString() {
