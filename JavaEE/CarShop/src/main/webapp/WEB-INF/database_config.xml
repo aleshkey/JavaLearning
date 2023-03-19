@@ -1,0 +1,14 @@
+<datasources>
+    <datasource jndi-name="jdbc/javaEE" pool-name="database_config" enabled="true">
+        <connection-url>jdbc:postgresql://localhost:5432/javaEE</connection-url>
+        <driver>postgres</driver>
+        <security>
+            <user-name>aleshkey</user-name>
+            <password>lEsha6012004</password>
+        </security>
+        <pool>
+            <min-pool-size>5</min-pool-size>
+            <max-pool-size>10</max-pool-size>
+        </pool>
+    </datasource>
+</datasources>

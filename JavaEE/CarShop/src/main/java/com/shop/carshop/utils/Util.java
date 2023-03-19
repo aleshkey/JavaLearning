@@ -19,20 +19,23 @@ import java.util.regex.*;
 
 
 public class Util {
-    public static Connection createConnection(){
-        Connection connection;
-        Properties properties = new Properties();
+    private static Connection connection;
 
-        try {
-            properties.load(new FileInputStream("D:\\lesha\\JavaLearning\\JavaEE\\CarShop\\src\\main\\resources\\application.properties"));
-            Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection(properties.getProperty("URL"), properties.getProperty("USER"), properties.getProperty("PASSWORD"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+    public static Connection createConnection(){
+        if (connection == null) {
+            Properties properties = new Properties();
+
+            try {
+                properties.load(new FileInputStream("D:\\lesha\\JavaLearning\\JavaEE\\CarShop\\src\\main\\resources\\application.properties"));
+                Class.forName("org.postgresql.Driver");
+                connection = DriverManager.getConnection(properties.getProperty("URL"), properties.getProperty("USER"), properties.getProperty("PASSWORD"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
         return connection;
     }

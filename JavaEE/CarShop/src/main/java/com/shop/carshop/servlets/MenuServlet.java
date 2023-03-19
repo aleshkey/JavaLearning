@@ -19,6 +19,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Iterator;
 import org.slf4j.Logger;
@@ -27,8 +28,6 @@ import java.util.List;
 
 @WebServlet(name = "MenuServlet", value = "/MenuServlet")
 public class MenuServlet extends HttpServlet {
-
-
     private CarDAO carDAO = new CarDAO();
     private UserDAO userDAO = new UserDAO();
     private PhoneDAO phoneDAO = new PhoneDAO();
