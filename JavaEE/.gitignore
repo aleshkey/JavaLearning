@@ -75,6 +75,8 @@ fabric.properties
 
 .idea/
 
+target/
+
 *.properties
 
 *.yaml
