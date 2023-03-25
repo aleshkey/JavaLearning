@@ -5,16 +5,23 @@ import com.google.gson.GsonBuilder;
 import com.shop.carshop.Repository.AdRepository;
 import com.shop.carshop.model.*;
 import com.shop.carshop.utils.Util;
+import org.hibernate.SessionFactory;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class AdMapper {
+
+
+
     private static final AdRepository adRepository = new AdRepository();
+
     private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     public static void createAd(HttpServletRequest request){
@@ -35,7 +42,7 @@ public class AdMapper {
             JSONObject jsonObject = iterator.next();
             System.out.println(jsonObject);
             Phone phone = new Phone();
-            phone.setOwner(user);
+            phone.setUser(user);
             phone.setNumber(String.valueOf(jsonObject.get("number")));
             phones.add(phone);
         }
@@ -52,7 +59,7 @@ public class AdMapper {
             images.add(image);
         }
         user.setPhones(phones);
-        car.setOwner(user);
+        car.setUser(user);
         car.setImages(images);
 
         adRepository.save(car);
@@ -83,8 +90,8 @@ public class AdMapper {
         object.put("model", car.getModel());
         object.put("yearOfRelease", car.getYearOfRelease());
         object.put("condition", car.getCondition());
-        object.put("ownerName", car.getOwner().getName());
-        object.put("ownerPhones", car.getOwner().getPhones());
+        object.put("ownerName", car.getUser().getName());
+        object.put("ownerPhones", car.getUser().getPhones());
         object.put("photosURL", car.getImages());
         object.put("creationDate", car.getAd().getDateOfCreation());
         return object;

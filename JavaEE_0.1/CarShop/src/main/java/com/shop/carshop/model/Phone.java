@@ -3,13 +3,13 @@ package com.shop.carshop.model;
 import lombok.*;
 import org.json.simple.JSONObject;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Phone")
+@Table(name = "phones")
 public class Phone {
 
     @Id
@@ -19,7 +19,7 @@ public class Phone {
 
     @ManyToOne
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
-    private User owner;
+    private User user;
 
     @Column(name = "number")
     private String number;

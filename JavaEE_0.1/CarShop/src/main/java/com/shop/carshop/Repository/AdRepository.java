@@ -1,26 +1,43 @@
 package com.shop.carshop.Repository;
 
 import com.shop.carshop.model.*;
-import com.shop.carshop.utils.Util;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.Persistence;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import jakarta.persistence.EntityManagerFactory;
+
 import java.time.ZonedDateTime;
 import java.util.List;
 
+
+
 public class AdRepository {
     private final Session session;
+
     private final SessionFactory sessionFactory;
+
+
+    private EntityManagerFactory emf;
+
+    private SessionFactory buildSessionFactory(){
+        return  emf.unwrap(SessionFactory.class);
+    }
+
+
     public AdRepository() {
         Configuration configuration = new Configuration().addAnnotatedClass(Ad.class).addAnnotatedClass(Car.class).addAnnotatedClass(Image.class).addAnnotatedClass(Phone.class).addAnnotatedClass(User.class);
-
-        sessionFactory = configuration.buildSessionFactory();
+        System.out.println(1);
+        try {
+            emf = Persistence.createEntityManagerFactory("ad_persistence");
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        System.out.println(2);
+        sessionFactory = buildSessionFactory();
         session = sessionFactory.getCurrentSession();
-
     }
 
     private String getCurrentDate() {
@@ -30,7 +47,7 @@ public class AdRepository {
     public void save(Car car){
         session.beginTransaction();
         Ad ad = new Ad();
-        ad.setCar(car);
+        car.setAd(ad);
         ad.setDateOfLastUpdate(getCurrentDate());
         ad.setDateOfCreation(getCurrentDate());
         session.save(ad);
@@ -81,11 +98,7 @@ public class AdRepository {
 
     public List<Ad> getAllAds(){
         session.beginTransaction();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Ad> criteria = builder.createQuery(Ad.class);
-        Root<Ad> root = criteria.from(Ad.class);
-        criteria.select(root);
-        List<Ad> entities = session.createQuery(criteria).getResultList();
+        List<Ad> entities = session.createQuery("FROM com.shop.carshop.model.Ad").getResultList();
         session.getTransaction().commit();
         sessionFactory.close();
         return entities;

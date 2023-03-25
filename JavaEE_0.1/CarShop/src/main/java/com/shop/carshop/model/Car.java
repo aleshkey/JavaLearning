@@ -4,7 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Car")
+@Table(name = "cars")
 public class Car implements Serializable {
     @Id
     @OneToOne
@@ -33,7 +33,7 @@ public class Car implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
-    private User owner;
+    private User user;
 
     @OneToMany(mappedBy = "car")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, CascadeType.REMOVE, CascadeType.REFRESH})

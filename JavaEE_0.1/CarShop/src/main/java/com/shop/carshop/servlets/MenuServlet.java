@@ -14,7 +14,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Iterator;
+import java.util.Collections;
 
 @WebServlet(name = "MenuServlet", value = "/MenuServlet")
 public class MenuServlet extends HttpServlet {

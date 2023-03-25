@@ -4,13 +4,13 @@ package com.shop.carshop.model;
 import lombok.*;
 import org.json.simple.JSONObject;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Image")
+@Table(name = "images")
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,7 @@ public class Image {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "car_id", referencedColumnName = "id")
+    @JoinColumn(name = "car_id", referencedColumnName = "ad_id")
     private Car car;
 
     @Column(name = "url")

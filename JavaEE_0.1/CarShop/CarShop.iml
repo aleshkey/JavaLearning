@@ -17,8 +17,12 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="CarShop" />
+          <factory-entry name="ad_persistence" value="28f5ce48-de1a-43b7-b71f-32bf0f2ae210" />
         </datasource-mapping>
-        <naming-strategy-map />
+        <naming-strategy-map>
+          <unit-entry name="ad_persistence" />
+        </naming-strategy-map>
+        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
       </configuration>
     </facet>
   </component>
