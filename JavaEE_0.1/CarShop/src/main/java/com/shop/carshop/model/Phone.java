@@ -8,20 +8,28 @@ import jakarta.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Entity
 @Table(name = "phones")
 public class Phone {
+    public Phone(Phone phone, User user){
+        this.id = phone.getId();
+        this.number = phone.getNumber();
+        this.user = user;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
+    @NonNull
     private User user;
 
     @Column(name = "number")
+    @NonNull
     private String number;
 
     @Override

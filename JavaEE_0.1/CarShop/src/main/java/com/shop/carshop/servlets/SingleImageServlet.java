@@ -1,10 +1,6 @@
 package com.shop.carshop.servlets;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.shop.carshop.Dto.AdMapper;
-import com.shop.carshop.model.Image;
-import com.shop.carshop.utils.Util;
+import com.shop.carshop.Dto.ImageMapper;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,14 +16,14 @@ public class SingleImageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter pw = resp.getWriter();
-        pw.write(AdMapper.getImageInJSON(req));
+        pw.write(ImageMapper.getImageInJSON(req));
     }
 
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        AdMapper.removeImage(req);
-        resp.sendRedirect("/car-shop/cars/page/1");
+        ImageMapper.removeImage(req);
+        resp.sendRedirect("/car-shop/cars/pages/1");
     }
 
 }
