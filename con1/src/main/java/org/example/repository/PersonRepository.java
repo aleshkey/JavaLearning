@@ -7,8 +7,13 @@ import static org.example.Main.session;
 
 public class PersonRepository extends Repository{
     @Override
-    public Model get(int id) {
+    public Person get(int id) {
         return session.get(Person.class, id);
+    }
+
+    @Override
+    public int save(Model value) {
+        return super.save(value);
     }
 
     @Override

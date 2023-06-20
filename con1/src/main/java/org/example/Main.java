@@ -33,8 +33,6 @@ public class Main {
         CardRepository cr = new CardRepository();
         session.beginTransaction();
         pr.save(person);
-        System.out.println(pr.get(0));
-        System.out.println(cr.get(person.getId()));
         session.getTransaction().commit();
         sessionFactory.close();
 
