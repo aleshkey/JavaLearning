@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: 'postgres:latest'
+    container_name: 'test'
+    ports:
+      - 5436:5432
+    environment:
+      POSTGRES_USER: aleshkey
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DB: test
+      POSTGRES_PASSWORD: lEsha6012004
