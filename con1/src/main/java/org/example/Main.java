@@ -32,9 +32,9 @@ public class Main {
         PersonRepository pr = new PersonRepository();
         CardRepository cr = new CardRepository();
         session.beginTransaction();
-        pr.save(person, session);
-        System.out.println(pr.get(0, session));
-        System.out.println(cr.get(person.getId(), session));
+        pr.save(person);
+        System.out.println(pr.get(0));
+        System.out.println(cr.get(person.getId()));
         session.getTransaction().commit();
         sessionFactory.close();
 
