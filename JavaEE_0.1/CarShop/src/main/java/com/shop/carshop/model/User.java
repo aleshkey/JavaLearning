@@ -9,12 +9,12 @@ import org.hibernate.annotations.Cascade;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Model {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

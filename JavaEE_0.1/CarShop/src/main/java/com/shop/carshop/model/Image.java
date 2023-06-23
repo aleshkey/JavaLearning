@@ -7,12 +7,12 @@ import org.json.simple.JSONObject;
 import jakarta.persistence.*;
 
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Entity
 @Table(name = "images")
-public class Image {
+public class Image implements Model {
     public Image(Image image, Car car){
         this.id = image.getId();
         this.url = image.getUrl();
@@ -24,7 +24,7 @@ public class Image {
     @Column(name = "id")
     private int id;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinColumn(name = "car_id", referencedColumnName = "ad_id")
     @NonNull
     private Car car;

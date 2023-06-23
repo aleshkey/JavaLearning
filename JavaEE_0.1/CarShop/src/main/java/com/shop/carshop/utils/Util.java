@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.regex.*;
 import org.hibernate.Session;
 
+import static com.shop.carshop.constants.Constants.sessionFactory;
+
 
 public class Util {
 
@@ -22,14 +24,11 @@ public class Util {
 
     public static Session getSession(){
         if (session == null) {
-            Configuration configuration = new Configuration().addAnnotatedClass(Ad.class).addAnnotatedClass(Car.class).addAnnotatedClass(Image.class).addAnnotatedClass(Phone.class).addAnnotatedClass(User.class);
-
-            SessionFactory sessionFactory = configuration.buildSessionFactory();
             session = sessionFactory.getCurrentSession();
-            sessionFactory.close();
         }
         return session;
     }
+
 
     public static int getIDFromURL(String URL){
         Pattern integerPattern = Pattern.compile("-?\\d+");

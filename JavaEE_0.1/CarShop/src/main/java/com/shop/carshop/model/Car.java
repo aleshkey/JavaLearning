@@ -9,12 +9,12 @@ import java.io.Serializable;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Entity
 @Table(name = "cars")
-public class Car implements Serializable {
+public class Car implements Serializable, Model {
 
     public Car(Car car, Ad ad, User user){
         this.mark = car.getMark();
@@ -27,7 +27,7 @@ public class Car implements Serializable {
     }
 
     @Id
-    @OneToOne(cascade = jakarta.persistence.CascadeType.ALL)
+    @OneToOne(cascade = jakarta.persistence.CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "ad_id", referencedColumnName = "id")
     private Ad ad;
 
@@ -47,12 +47,12 @@ public class Car implements Serializable {
     @NonNull
     private Condition condition;
 
-    @OneToOne(cascade = jakarta.persistence.CascadeType.ALL)
+    @OneToOne(cascade = jakarta.persistence.CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     @NonNull
     private User user;
 
-    @OneToMany(mappedBy = "car")
+    @OneToMany(mappedBy = "car", fetch = FetchType.EAGER)
     @Cascade({CascadeType.PERSIST})
     private List<Image> images;
 
@@ -67,6 +67,11 @@ public class Car implements Serializable {
                 ", user=" + user.getId() +
                 ", images=" + images +
                 '}';
+    }
+
+    @Override
+    public int getId() {
+        return ad.getId();
     }
 }
 

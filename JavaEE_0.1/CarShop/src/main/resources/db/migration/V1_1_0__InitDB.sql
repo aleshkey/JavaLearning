@@ -29,6 +29,13 @@ create table users (
     primary key (id)
 );
 
+create table ads(
+    id serial not null,
+    date_of_last_update varchar(30),
+    date_of_creation varchar(30),
+    primary key (id)
+);
+
 alter table
     if exists cars
         add constraint ad_id_fk foreign key (ad_id) references ads;

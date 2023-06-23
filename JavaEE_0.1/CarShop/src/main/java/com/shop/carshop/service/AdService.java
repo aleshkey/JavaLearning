@@ -2,10 +2,15 @@ package com.shop.carshop.service;
 
 import com.shop.carshop.Repository.AdRepository;
 import com.shop.carshop.model.Ad;
+import org.hibernate.Session;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.shop.carshop.constants.Constants.sessionFactory;
+import static com.shop.carshop.constants.Constants.session;
+
 
 public class AdService {
 
@@ -18,19 +23,31 @@ public class AdService {
     }
 
     public static Ad setBothDatesAndSave(Ad ad){
+        session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
         ad.setDateOfCreation(getCurrentDate());
         ad.setDateOfLastUpdate(getCurrentDate());
         adRepository.save(ad);
+        System.out.println(session.getTransaction().isActive());
+        session.getTransaction().commit();
+        System.out.println(session.getTransaction().isActive());
+        //sessionFactory.close();
         return ad;
     }
 
     public static Ad setUpdateDateAndSave(Ad ad){
+        session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
         ad.setDateOfLastUpdate(getCurrentDate());
         adRepository.save(ad);
+        session.getTransaction().commit();
+        //sessionFactory.close();
         return ad;
     }
 
     public static List<Ad> getPage(int page){
+        session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
         page--;
         List<Ad> res = new ArrayList<>();
         var allAds = adRepository.getAllAds();
@@ -44,6 +61,9 @@ public class AdService {
                 res.add(allAds.get(i));
             }
         }
+
+        session.getTransaction().commit();
+        //sessionFactory.close();
         return res;
     }
 }

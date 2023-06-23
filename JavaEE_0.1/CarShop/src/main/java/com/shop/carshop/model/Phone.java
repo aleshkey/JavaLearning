@@ -6,12 +6,12 @@ import org.json.simple.JSONObject;
 import jakarta.persistence.*;
 
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Entity
 @Table(name = "phones")
-public class Phone {
+public class Phone implements Model{
     public Phone(Phone phone, User user){
         this.id = phone.getId();
         this.number = phone.getNumber();

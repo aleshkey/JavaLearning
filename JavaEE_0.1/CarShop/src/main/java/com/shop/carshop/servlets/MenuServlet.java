@@ -1,7 +1,11 @@
 package com.shop.carshop.servlets;
 
 import com.shop.carshop.Dto.AdMapper;
+import com.shop.carshop.model.*;
 import com.shop.carshop.utils.Util;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

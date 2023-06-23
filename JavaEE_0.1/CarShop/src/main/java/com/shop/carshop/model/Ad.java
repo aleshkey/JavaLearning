@@ -9,17 +9,17 @@ import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @RequiredArgsConstructor
 @Entity
 @Table(name = "ads")
-public class Ad implements Serializable {
+public class Ad implements Serializable,Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    int id;
+    private int id;
 
-    @OneToOne(mappedBy = "ad")
+    @OneToOne(mappedBy = "ad", fetch = FetchType.EAGER)
     @Cascade({CascadeType.ALL})
     @NonNull
     private Car car;
