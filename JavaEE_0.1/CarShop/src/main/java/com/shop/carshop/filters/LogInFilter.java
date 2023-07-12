@@ -47,8 +47,12 @@ public class LogInFilter implements Filter,
                     ((HttpServletRequest) request).getRequestURI(), ((HttpServletResponse) response).getStatus());
         }
         catch (Exception e){
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            PrintWriter pw = response.getWriter();
             System.out.println(e.getMessage());
             logger.error(e.getMessage());
+            pw.write(e.getMessage());
         }
     }
 

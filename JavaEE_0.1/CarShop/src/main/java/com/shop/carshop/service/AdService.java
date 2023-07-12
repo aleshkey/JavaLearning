@@ -2,10 +2,9 @@ package com.shop.carshop.service;
 
 import com.shop.carshop.Repository.AdRepository;
 import com.shop.carshop.model.Ad;
-import org.hibernate.Session;
 
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.shop.carshop.constants.Constants.sessionFactory;
@@ -18,8 +17,8 @@ public class AdService {
 
     private static final int SIZE = 20;
 
-    private static String getCurrentDate() {
-        return String.valueOf(ZonedDateTime.now()).split("T")[0];
+    private static Date getCurrentDate() {
+        return new Date();
     }
 
     public static Ad setBothDatesAndSave(Ad ad){
@@ -28,10 +27,7 @@ public class AdService {
         ad.setDateOfCreation(getCurrentDate());
         ad.setDateOfLastUpdate(getCurrentDate());
         adRepository.save(ad);
-        System.out.println(session.getTransaction().isActive());
         session.getTransaction().commit();
-        System.out.println(session.getTransaction().isActive());
-        //sessionFactory.close();
         return ad;
     }
 
@@ -40,12 +36,13 @@ public class AdService {
         session.beginTransaction();
         ad.setDateOfLastUpdate(getCurrentDate());
         adRepository.save(ad);
+        System.out.println(1);
         session.getTransaction().commit();
-        //sessionFactory.close();
         return ad;
     }
 
     public static List<Ad> getPage(int page){
+        System.out.println(page);
         session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         page--;
@@ -63,7 +60,6 @@ public class AdService {
         }
 
         session.getTransaction().commit();
-        //sessionFactory.close();
         return res;
     }
 }

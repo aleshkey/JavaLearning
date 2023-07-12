@@ -1,29 +1,32 @@
 package com.shop.carshop.service;
 
+import com.shop.carshop.Repository.AdRepository;
 import com.shop.carshop.Repository.CarRepository;
 import com.shop.carshop.model.Car;
-import org.hibernate.Session;
 
 import static com.shop.carshop.constants.Constants.sessionFactory;
+import static com.shop.carshop.constants.Constants.session;
+
 
 public class CarService {
     private static final CarRepository carRepository = new CarRepository();
+    private static final AdRepository adRepository = new AdRepository();
 
     public static void remove(int carId){
-        Session session = sessionFactory.getCurrentSession();
+        session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-        carRepository.remove(carId);
+        adRepository.remove(carId);
         session.getTransaction().commit();
-        //sessionFactory.close();
     }
 
     public static Car getFromRepository(int carId)
     {
-        Session session = sessionFactory.getCurrentSession();
+        session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         Car car = carRepository.get(carId);
+        System.out.println(car.getUser().getPhones());
+        System.out.println(car.getImages());
         session.getTransaction().commit();
-        //sessionFactory.close();
         return car;
     }
 

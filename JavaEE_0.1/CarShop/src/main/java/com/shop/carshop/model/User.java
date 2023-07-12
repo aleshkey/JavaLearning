@@ -6,6 +6,7 @@ import lombok.*;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cascade;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
@@ -14,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "users")
-public class User implements Model {
+public class User implements Serializable, Model {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +34,8 @@ public class User implements Model {
     @NonNull
     private String email;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
-    @Cascade({ org.hibernate.annotations.CascadeType.PERSIST})
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @Cascade({ org.hibernate.annotations.CascadeType.ALL})
     private List<Phone> phones;
+
 }

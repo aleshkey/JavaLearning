@@ -20,8 +20,6 @@ public class AdMapper {
         array.clear();
         array =(JSONArray) object.get("images");
         List<Image> images = ImageMapper.fromJSONToImages(array, car);
-        user.setPhones(phones);
-        car.setImages(images);
         car.setUser(user);
         user.setCar(car);
         ad.setCar(car);

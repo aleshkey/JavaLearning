@@ -2,9 +2,12 @@ package com.shop.carshop.model;
 
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.json.simple.JSONObject;
 
 import jakarta.persistence.*;
+
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor(force = true)
@@ -12,7 +15,7 @@ import jakarta.persistence.*;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "images")
-public class Image implements Model {
+public class Image implements Serializable, Model {
     public Image(Image image, Car car){
         this.id = image.getId();
         this.url = image.getUrl();
@@ -24,7 +27,8 @@ public class Image implements Model {
     @Column(name = "id")
     private int id;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinColumn(name = "car_id", referencedColumnName = "ad_id")
     @NonNull
     private Car car;

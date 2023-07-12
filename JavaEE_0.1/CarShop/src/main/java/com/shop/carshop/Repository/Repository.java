@@ -1,14 +1,13 @@
 package com.shop.carshop.Repository;
 
 import com.shop.carshop.model.Model;
-import org.hibernate.Session;
 
 import static com.shop.carshop.constants.Constants.session;
 
 
 public interface Repository <T extends Model>{
     default int save(T model){
-        session.save(model);
+        session.saveOrUpdate(model);
         int id = model.getId();
         return id;
     }
@@ -17,10 +16,11 @@ public interface Repository <T extends Model>{
 
     default void remove (int id){
         T model = session.get(getModelClass(), id);
-        session.remove(model.getId());
+        session.remove(model);
     }
 
     default T get(int id){
-        return session.get(getModelClass(), id);
+        T model = session.get(getModelClass(), id);
+        return model;
     }
 }

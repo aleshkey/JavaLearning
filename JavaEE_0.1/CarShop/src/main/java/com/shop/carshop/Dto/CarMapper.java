@@ -60,8 +60,8 @@ public class CarMapper {
             car.setMark(String.valueOf(object.get("mark")));
         if (object.containsKey("model"))
             car.setModel(String.valueOf(object.get("model")));
-        if (object.containsKey("year_of_release"))
-            car.setYearOfRelease((Integer) object.get("year_of_release"));
+        if (object.containsKey("yearOfRelease"))  //year_of_release
+            car.setYearOfRelease(Math.toIntExact((Long) object.get("yearOfRelease")));
         CarService.update(car);
     }
 

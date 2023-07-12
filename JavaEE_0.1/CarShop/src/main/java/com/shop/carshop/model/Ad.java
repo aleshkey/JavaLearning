@@ -6,6 +6,7 @@ import org.hibernate.annotations.CascadeType;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -13,7 +14,7 @@ import java.io.Serializable;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "ads")
-public class Ad implements Serializable,Model {
+public class Ad implements Serializable, Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -25,9 +26,11 @@ public class Ad implements Serializable,Model {
     private Car car;
 
     @Column(name = "date_of_last_update")
-    private String dateOfLastUpdate;
+    private Date dateOfLastUpdate;
 
     @Column(name = "date_of_creation")
-    private String dateOfCreation;
+    private Date dateOfCreation;
 
+    @Version
+    private Integer version;
 }

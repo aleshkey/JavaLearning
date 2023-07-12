@@ -1,9 +1,12 @@
 package com.shop.carshop.model;
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.json.simple.JSONObject;
 
 import jakarta.persistence.*;
+
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor(force = true)
@@ -11,7 +14,7 @@ import jakarta.persistence.*;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "phones")
-public class Phone implements Model{
+public class Phone implements Serializable, Model{
     public Phone(Phone phone, User user){
         this.id = phone.getId();
         this.number = phone.getNumber();
@@ -23,8 +26,9 @@ public class Phone implements Model{
     @Column(name = "id")
     private int id;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @NonNull
     private User user;
 
@@ -38,4 +42,5 @@ public class Phone implements Model{
         object.put("number", number);
         return String.valueOf(object);
     }
+
 }

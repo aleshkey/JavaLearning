@@ -1,11 +1,13 @@
 package com.shop.carshop.service;
 
+import com.shop.carshop.Repository.CarRepository;
 import com.shop.carshop.Repository.ImageRepository;
+import com.shop.carshop.model.Car;
 import com.shop.carshop.model.Image;
-import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
 import static com.shop.carshop.constants.Constants.sessionFactory;
+import static com.shop.carshop.constants.Constants.session;
 
 
 public class ImageService {
@@ -13,7 +15,7 @@ public class ImageService {
     private static final ImageRepository imageRepository = new ImageRepository();
 
     public static String getFromRepository(int imageId){
-        Session session = sessionFactory.getCurrentSession();
+        session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         Image image = imageRepository.get(imageId);
         JSONObject object = new JSONObject();
@@ -21,16 +23,18 @@ public class ImageService {
         object.put("url", image.getUrl());
         object.put("ad_id", image.getCar().getAd().getId());
         session.getTransaction().commit();
-        //sessionFactory.close();
         return object.toString();
     }
 
     public static void removeFromRepository(int imageId){
-        Session session = sessionFactory.getCurrentSession();
+        session = sessionFactory.getCurrentSession();
         session.beginTransaction();
+        CarRepository cr = new CarRepository();
         Image image = imageRepository.get(imageId);
-        imageRepository.remove(image.getId());
+        Car car = image.getCar();
+        car.getImages().remove(image);
+        imageRepository.remove(imageId);
+        cr.save(car);
         session.getTransaction().commit();
-        //sessionFactory.close();
     }
 }

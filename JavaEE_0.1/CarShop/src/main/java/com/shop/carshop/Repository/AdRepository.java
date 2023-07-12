@@ -10,7 +10,7 @@ import static com.shop.carshop.constants.Constants.session;
 public class AdRepository implements Repository<Ad>{
     @Override
     public Class<Ad> getModelClass() {
-        return null;
+        return Ad.class;
     }
 
     public List<Ad> getAllAds(){

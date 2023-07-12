@@ -5,6 +5,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class Car implements Serializable, Model {
     private User user;
 
     @OneToMany(mappedBy = "car", fetch = FetchType.EAGER)
-    @Cascade({CascadeType.PERSIST})
+    @Cascade({CascadeType.PERSIST, CascadeType.SAVE_UPDATE})
     private List<Image> images;
 
     @Override
