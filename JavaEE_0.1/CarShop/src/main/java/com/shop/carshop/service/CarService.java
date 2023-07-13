@@ -26,11 +26,6 @@ public class CarService {
         Car car = carRepository.get(carId);
         System.out.println(car.getUser().getPhones());
         System.out.println(car.getImages());
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         session.getTransaction().commit();
         return car;
     }

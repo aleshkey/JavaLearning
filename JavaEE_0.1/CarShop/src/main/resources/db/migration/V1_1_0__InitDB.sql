@@ -33,7 +33,6 @@ create table ads(
     id serial not null,
     date_of_last_update timestamp,
     date_of_creation timestamp,
-    version int,
     primary key (id)
 );
 

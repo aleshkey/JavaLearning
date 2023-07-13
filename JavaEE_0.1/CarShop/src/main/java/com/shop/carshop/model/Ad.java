@@ -27,10 +27,7 @@ public class Ad implements Serializable, Model {
 
     @Column(name = "date_of_last_update")
     private Date dateOfLastUpdate;
-
+    
     @Column(name = "date_of_creation")
     private Date dateOfCreation;
-
-    @Version
-    private Integer version;
 }
